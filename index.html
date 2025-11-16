@@ -18,7 +18,10 @@
 </head>
 <body><div class="card">
   <h2>Статус вашего заказа</h2>
-  <div class="small">Обновляется автоматически при переходе между этапами</div>  <ul class="step-list" id="steps">
+  <div id="orderId" style="margin-top:4px;font-weight:600;">Заказ: <span id="orderNumber"></span></div>
+  <div class="small">Обновляется автоматически при переходе между этапами</div>  <div id="progressBarContainer" style="margin:20px 0; height:10px; background:#e5e7eb; border-radius:6px; overflow:hidden;">
+    <div id="progressBar" style="height:100%; width:0%; background:#3b82f6; transition:0.4s ease;"></div>
+  </div>  <ul class="step-list" id="steps">
     <li class="step" data-step="1">В сборке <span class="mark"></span></li>
     <li class="step" data-step="2">Передаётся в доставку <span class="mark"></span></li>
     <li class="step" data-step="3">В пути <span class="mark"></span></li>
@@ -27,19 +30,25 @@
 </div><script>
   // ---- Настройка (можешь менять вручную или с сервера) ----
   // 1 = "В сборке", 2 = "Передаётся в доставку", 3 = "В пути", 4 = "Доставлено"
-  const CURRENT_STATUS = 1; // здесь просто ставишь текущий этап
+  const CURRENT_STATUS = 1;
+  const ORDER_ID = "A0042MSK"; // 👉 здесь ставишь любой номер заказа // здесь просто ставишь текущий этап
 
   // ---- Визуализация ----
+  const totalSteps = 4;
+  const progress = Math.max(1, Math.min(CURRENT_STATUS, totalSteps));
+  const percent = ((progress - 1) / (totalSteps - 1)) * 100;
+  document.getElementById('progressBar').style.width = percent + '%';
+  document.getElementById('orderNumber').textContent = ORDER_ID;
   const steps = document.querySelectorAll('.step');
   steps.forEach(s => {
     const id = Number(s.dataset.step);
     const mark = s.querySelector('.mark');
     if(id < CURRENT_STATUS){
       s.classList.add('done');
-      mark.textContent = '✔️';
+      mark.textContent = '<—';
     } else if(id === CURRENT_STATUS){
       s.classList.add('active');
-      mark.textContent = '⏳';
+      mark.textContent = '<—';
     }
   });
 </script></body>
