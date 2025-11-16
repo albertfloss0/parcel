@@ -16,11 +16,12 @@
     .step.done { border-color: #10b981; background: #ecfdf5; }
     #progressBarContainer { margin:20px 0; height:10px; background:#e5e7eb; border-radius:6px; overflow:hidden; }
     #progressBar { height:100%; width:0%; background:#ec4899; transition:0.4s ease; }
-    button, a.button { display: block; margin-top: 12px; padding: 12px 16px; font-size: 16px; border-radius: 8px; border: none; text-decoration: none; text-align: center; color: #fff; cursor: pointer; }
-    button { background: #f87171; }
-    button:hover { background: #ef4444; }
+    .buttons { display: flex; gap: 10px; margin-top: 20px; }
+    .buttons a, .buttons button { flex: 1; padding: 12px 16px; font-size: 16px; border-radius: 8px; text-decoration: none; text-align: center; color: #fff; cursor: pointer; border: none; }
     a.button { background: #3b82f6; }
     a.button:hover { background: #2563eb; }
+    button { background: #f87171; }
+    button:hover { background: #ef4444; }
   </style>
 </head>
 <body>
@@ -35,8 +36,10 @@
     <li class="step" data-step="2">Передаётся в доставку <span class="mark"></span></li>
     <li class="step" data-step="3">В пути <span class="mark"></span></li>
     <li class="step" data-step="4">Доставлено <span class="mark"></span></li>
-  </ul><a href="https://t.me/albertfloss0?text=слышь%20хуила%20где%20моя%20кола" class="button" target="_blank">Связаться с исполнителем</a> <button id="cancelBtn">Отменить заказ</button>
-
+  </ul>  <div class="buttons">
+    <a href="https://t.me/albertfloss0?text=слышь%20хуила%20где%20моя%20кола?" class="button" target="_blank">Связаться с исполнителем</a>
+    <button id="cancelBtn">Отменить заказ</button>
+  </div>
 </div>
 <script>
   const CURRENT_STATUS = 1;
@@ -45,7 +48,7 @@
 
 const steps = document.querySelectorAll('.step'); steps.forEach(s => { const id = Number(s.dataset.step); const mark = s.querySelector('.mark'); if(id < CURRENT_STATUS){ s.classList.add('done'); } if(id === CURRENT_STATUS){ s.classList.add('active'); } if(id === 1) mark.textContent = '⏳'; if(id === 2) mark.textContent = '📦'; if(id === 3) mark.textContent = '🚛'; if(id === 4) mark.textContent = '🏁'; });
 
-document.getElementById('cancelBtn').addEventListener('click', () => { alert('не-а'); }); </script>
+document.getElementById('cancelBtn').addEventListener('click', () => { alert('неее нихуя)'); }); </script>
 
 </body>
 </html>
