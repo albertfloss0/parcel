@@ -9,46 +9,55 @@
     body { font-family: Inter, sans-serif; margin: 0; padding: 24px; background: #f6f7fa; }
     .card { background: #fff; padding: 20px; border-radius: 14px; max-width: 520px; margin: auto; box-shadow: 0 4px 16px rgba(0,0,0,0.08); }
     h2 { margin-top: 0; }
+    .info { margin: 8px 0; font-weight: 600; }
     .step-list { margin-top: 18px; padding-left: 0; list-style: none; }
     .step { padding: 12px 14px; border-radius: 10px; margin-bottom: 10px; border: 1px solid #e5e7eb; background: #fafafa; display: flex; justify-content: space-between; align-items: center; }
     .step.active { border-color: #3b82f6; background: #ebf2ff; }
     .step.done { border-color: #10b981; background: #ecfdf5; }
-    .small { color: #6b7280; font-size: 13px; }
+    #progressBarContainer { margin:20px 0; height:10px; background:#e5e7eb; border-radius:6px; overflow:hidden; }
+    #progressBar { height:100%; width:0%; background:#ec4899; transition:0.4s ease; }
+    button { margin-top: 20px; padding: 12px 16px; font-size: 16px; border-radius: 8px; border: none; background: #f87171; color: #fff; cursor: pointer; }
+    button:hover { background: #ef4444; }
   </style>
 </head>
-<body><div class="card">
+<body>
+<div class="card">
   <h2>Статус вашей доставки</h2>
-  <div id="orderId" style="margin-top:4px;font-weight:600;">Трек-номер: <span id="orderNumber"></span></div>  <div id="progressBarContainer" style="margin:20px 0; height:10px; background:#e5e7eb; border-radius:6px; overflow:hidden;">
-    <div id="progressBar" style="height:100%; width:0%; background:#ec4899; transition:0.4s ease;"></div>
+  <div class="info">Трек-номер: <span id="orderNumber"></span></div>
+  <div class="info">Товар: <span id="productName">Ноутбук</span></div>
+  <div class="info">Объявленная ценность: <span id="declaredValue">1200$</span></div>  <div id="progressBarContainer">
+    <div id="progressBar"></div>
   </div>  <ul class="step-list" id="steps">
     <li class="step" data-step="1">В сборке <span class="mark"></span></li>
     <li class="step" data-step="2">Передаётся в доставку <span class="mark"></span></li>
     <li class="step" data-step="3">В пути <span class="mark"></span></li>
     <li class="step" data-step="4">Доставлено <span class="mark"></span></li>
-  </ul>
-</div><script>
-  // ---- Настройка (можешь менять вручную или с сервера) ----
-  // 1 = "В сборке", 2 = "Передаётся в доставку", 3 = "В пути", 4 = "Доставлено"
-  const CURRENT_STATUS = 1;
-  const ORDER_ID = "A00042MSK"; // 👉 здесь ставишь любой номер заказа // здесь просто ставишь текущий этап
+  </ul><button id="cancelBtn">Отменить заказ</button>
 
-  // ---- Визуализация ----
+</div><script>
+  const CURRENT_STATUS = 1;
+  const ORDER_ID = "A00042MSK";
+  document.getElementById('orderNumber').textContent = ORDER_ID;
+
   const totalSteps = 4;
   const progress = Math.max(1, Math.min(CURRENT_STATUS, totalSteps));
   const percent = (progress / totalSteps) * 100;
   document.getElementById('progressBar').style.width = percent + '%';
-  document.getElementById('orderNumber').textContent = ORDER_ID;
+
   const steps = document.querySelectorAll('.step');
   steps.forEach(s => {
     const id = Number(s.dataset.step);
     const mark = s.querySelector('.mark');
     if(id < CURRENT_STATUS){ s.classList.add('done'); }
     if(id === CURRENT_STATUS){ s.classList.add('active'); }
-    // icons by step
     if(id === 1) mark.textContent = '⏳';
     if(id === 2) mark.textContent = '📦';
     if(id === 3) mark.textContent = '🚛';
     if(id === 4) mark.textContent = '🏁';
+  });
+
+  document.getElementById('cancelBtn').addEventListener('click', () => {
+    alert('не-а');
   });
 </script></body>
 </html>
