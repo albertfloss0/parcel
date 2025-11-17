@@ -42,7 +42,7 @@
   </div>
 </div>
 <script>
-  const CURRENT_STATUS = 1;
+  const CURRENT_STATUS = 3;
   const ORDER_ID = "A00042MSK";
   document.getElementById('orderNumber').textContent = ORDER_ID;const totalSteps = 4; const progress = Math.max(1, Math.min(CURRENT_STATUS, totalSteps)); const percent = (progress / totalSteps) * 100; document.getElementById('progressBar').style.width = percent + '%';
 
